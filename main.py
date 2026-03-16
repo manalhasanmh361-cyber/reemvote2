@@ -1,13 +1,16 @@
 from curl_cffi import requests
 from bs4 import BeautifulSoup
 import time
-while True:
+success=0
+for i in range(1000):
   try:
-    session = requests.Session()
+    print(f"We Are In Iteration {i}")
     url = "https://www.radionrjfm.com/vote/26"
-
+    proxy="204.199.140.25:999"
     # impersonate="chrome" هي السحر اللي بيعدي الحماية
-    response = session.get(url, impersonate="firefox")
+    proxies_dict = {"http": f"http://{proxy}", "https": f"http://{proxy}"}
+    session = requests.Session(impersonate="chrome", proxies=proxies_dict)
+    response = session.get(url, impersonate="chrome")
 
     print(response.status_code)
     soup = BeautifulSoup(response.text, "html.parser")
@@ -19,9 +22,6 @@ while True:
     # web_session=res.cookies.get_dict()['webground_session']
     # print(f"Extracted XSRF Token: {xtoken}")
     # print(f"Extracted Web Session: {web_session}")
-    # 190.94.213.80:999
-    # proxies_dict = {"http": f"http://{proxy}", "https": f"http://{proxy}"}
-    # session = requests.Session(impersonate="chrome", proxies=proxies_dict)
     headers = {
                     "authority": "www.radionrjfm.com",
                     "method": "POST",
@@ -55,7 +55,8 @@ while True:
     res2=session.post(url,headers=headers,data=payload)
     print(res2.status_code)
     if response.status_code == 200:
-        print("عدينا الحماية بنجاح!")
-    time.sleep(7)  # خليك محترم مع السيرفر، ما تبعتش سبام بسرعة
+        success+=1
+        print(f"success = {success}")
+    time.sleep(7)
   except:
     time.sleep(4)
