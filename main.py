@@ -46,7 +46,7 @@ def send_vote(vote_id):
         session = requests.Session(impersonate="chrome", proxies=proxies_dict)
         
         # 1. سحب التوكن (خلينا الـ Timeout 10 ثواني عشان لو البروكسي ميت منضيعش وقت)
-        url_get = "https://www.radionrjfm.com/vote/26"
+        url_get = "https://www.radionrjfm.com/vote/20"
         response = session.get(url_get, timeout=10)
         
         if response.status_code in [403, 429]:
@@ -74,16 +74,16 @@ def send_vote(vote_id):
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
             "content-type": "application/x-www-form-urlencoded",
             "origin": "https://www.radionrjfm.com",
-            "referer": "https://www.radionrjfm.com/vote/26",
+            "referer": "https://www.radionrjfm.com/vote/20",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"
         }
         
         payload = {
-            "gidvnrj": "26",
+            "gidvnrj": "20",
             "sex": "1",
             "age": "3",
             "_token": csrf_token,
-            "answers[527]": "1"
+            "answers[435]": "1"
         }
         
         # 4. إرسال التصويت
